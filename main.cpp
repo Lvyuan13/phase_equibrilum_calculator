@@ -157,8 +157,8 @@ double F(double t,double x1,double x2,double y1,double y2,double p,int j) {//j为
 	double root_v(double,double,double,double);
 	b1=0.077796*R*tc1/pc1;
 	b2=0.077796*R*tc2/pc2;
-	al=x1*x1*a1+2*x1*x2*sqrt(a1*a2)+x2*x2*a2; //al
-	av=y1*y1*a1+2*y1*y2*sqrt(a1*a2)+y2*y2*a2;//av
+	al=x1*x1*a1+2*x1*x2*sqrt(a1*a2)*(1-kij)+x2*x2*a2; //al
+	av=y1*y1*a1+2*y1*y2*sqrt(a1*a2)*(1-kij)+y2*y2*a2;//av
 	bl=x1*b1+x2*b2;
 	bv=y1*b1+y2*b2;
 	Al=al*p/pow((R*t),2.0);
@@ -167,10 +167,10 @@ double F(double t,double x1,double x2,double y1,double y2,double p,int j) {//j为
 	Bv=bv*p/(R*t);
 	zl=root_l(1,Bl-1,Al-3*Bl*Bl-2*Bl,-Al*Bl+Bl*Bl+Bl*Bl*Bl);
 	zv=root_v(1,Bv-1,Av-3*Bv*Bv-2*Bv,-Av*Bv+Bv*Bv+Bv*Bv*Bv);
-	fl1=exp(b1/bl*(zl-1)-log(zl-Bl)+Al/(2*sqrt(2)*Bl)*(b1/bl-2/al*(x1*a1+x2*sqrt(a1*a2)))*log((zl+(sqrt(2)+1)*Bl)/(zl-(sqrt(2)-1)*Bl)));
-	fv1=exp(b1/bv*(zv-1)-log(zv-Bv)+Av/(2*sqrt(2)*Bv)*(b1/bv-2/av*(y1*a1+y2*sqrt(a1*a2)))*log((zv+(sqrt(2)+1)*Bv)/(zv-(sqrt(2)-1)*Bv)));
-	fl2=exp(b2/bl*(zl-1)-log(zl-Bl)+Al/(2*sqrt(2)*Bl)*(b2/bl-2/al*(x2*a2+x1*sqrt(a1*a2)))*log((zl+(sqrt(2)+1)*Bl)/(zl-(sqrt(2)-1)*Bl)));
-	fv2=exp(b2/bv*(zv-1)-log(zv-Bv)+Av/(2*sqrt(2)*Bv)*(b2/bv-2/av*(y2*a2+y1*sqrt(a1*a2)))*log((zv+(sqrt(2)+1)*Bv)/(zv-(sqrt(2)-1)*Bv)));
+	fl1=exp(b1/bl*(zl-1)-log(zl-Bl)+Al/(2*sqrt(2)*Bl)*(b1/bl-2/al*(x1*a1+x2*(1-kij)*sqrt(a1*a2)))*log((zl+(sqrt(2)+1)*Bl)/(zl-(sqrt(2)-1)*Bl)));
+	fv1=exp(b1/bv*(zv-1)-log(zv-Bv)+Av/(2*sqrt(2)*Bv)*(b1/bv-2/av*(y1*a1+y2*(1-kij)*sqrt(a1*a2)))*log((zv+(sqrt(2)+1)*Bv)/(zv-(sqrt(2)-1)*Bv)));
+	fl2=exp(b2/bl*(zl-1)-log(zl-Bl)+Al/(2*sqrt(2)*Bl)*(b2/bl-2/al*(x2*a2+x1*(1-kij)*sqrt(a1*a2)))*log((zl+(sqrt(2)+1)*Bl)/(zl-(sqrt(2)-1)*Bl)));
+	fv2=exp(b2/bv*(zv-1)-log(zv-Bv)+Av/(2*sqrt(2)*Bv)*(b2/bv-2/av*(y2*a2+y1*(1-kij)*sqrt(a1*a2)))*log((zv+(sqrt(2)+1)*Bv)/(zv-(sqrt(2)-1)*Bv)));
 //aij在这里为x1*a1+x2*sqrt(a1*a2)
 	if(j==1)
 		return fl1;
